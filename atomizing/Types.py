@@ -2,7 +2,7 @@ from abc import abstractmethod
 from typing import Protocol, Any, TypeVar
 
 
-class AbcComparable(Protocol):
+class SupportsComparable(Protocol):
     """Protocol for annotating comparable types."""
 
     @abstractmethod
@@ -18,4 +18,4 @@ class AbcComparable(Protocol):
         pass
 
 
-Comparable = TypeVar("Comparable", bound=AbcComparable)
+Comparable = TypeVar("Comparable", bound=SupportsComparable)

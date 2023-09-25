@@ -3,6 +3,15 @@ from typing import Optional
 from atomizing.Types import Comparable
 
 
+class LinkedNode(object):
+    def __init__(self, value: Comparable = None, successor: Optional['LinkedNode'] = None):
+        self.value = value
+        self.successor: Optional["LinkedNode"] = successor
+
+    def end(self) -> bool:
+        return self.value is None and self.successor is None
+
+
 class TreeNode(object):
     def __init__(self, value: Comparable):
         self.value = value
