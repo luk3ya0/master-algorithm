@@ -7,6 +7,6 @@ directory = path.Path(__file__).abspath()
 # setting path
 sys.path.append(directory.parent.parent)
 
-from wooding import BinaryTree
+from trees import BinaryTree
 
 print(BinaryTree)
