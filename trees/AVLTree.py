@@ -1,6 +1,6 @@
 from atomize.Nodes import TreeNode
 from atomize.Types import Comparable
-from wooding.BinarySearchTree import BinarySearchTree
+from trees.BinarySearchTree import BinarySearchTree
 
 
 class AVLTree(BinarySearchTree):
