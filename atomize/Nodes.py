@@ -1,6 +1,6 @@
 from typing import Optional
 
-from atomizing.Types import Comparable
+from atomize.Types import Comparable
 
 
 class LinkedNode(object):
