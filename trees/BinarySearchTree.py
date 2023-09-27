@@ -1,5 +1,5 @@
-from atomizing.Nodes import TreeNode
-from atomizing.Types import Comparable
+from atomize.Nodes import TreeNode
+from atomize.Types import Comparable
 from wooding.BinaryTree import BinaryTree
 
 

@@ -1,5 +1,5 @@
-from atomizing.Nodes import LinkedNode
-from atomizing.Types import Comparable
+from atomize.Nodes import LinkedNode
+from atomize.Types import Comparable
 
 
 class LinkedStack(object):
@@ -13,7 +13,7 @@ class LinkedStack(object):
         result: Comparable = self.top.value
 
         if not self.top.end():
-            self.top = self.top.successor
+            self.top = self.top.following
 
         return result
 

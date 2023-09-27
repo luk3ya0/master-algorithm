@@ -4,12 +4,22 @@ from atomizing.Types import Comparable
 
 
 class LinkedNode(object):
-    def __init__(self, value: Comparable = None, successor: Optional['LinkedNode'] = None):
+    def __init__(self, value: Comparable = None, following: Optional['LinkedNode'] = None):
         self.value = value
-        self.successor: Optional["LinkedNode"] = successor
+        self.following: Optional["LinkedNode"] = following
 
     def end(self) -> bool:
-        return self.value is None and self.successor is None
+        return self.value is None and self.following is None
+
+
+class DualLinkedNode(object):
+    def __init__(self,
+                 value: Comparable = None,
+                 preceding: Optional['DualLinkedNode'] = None,
+                 following: Optional['DualLinkedNode'] = None):
+        self.value = value
+        self.following = following
+        self.preceding = preceding
 
 
 class TreeNode(object):
