@@ -22,6 +22,10 @@ class LinkedStack(object):
         return result
 
     @property
+    def isEmpty(self):
+        return self._depth == 0
+
+    @property
     def depth(self):
         if self.top.end():
             return 0
