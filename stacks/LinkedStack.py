@@ -5,9 +5,11 @@ from atomize.Types import Comparable
 class LinkedStack(object):
     def __init__(self):
         self.top = LinkedNode()  # End sentinel
+        self._depth = 0
 
     def push(self, value: Comparable):
         self.top = LinkedNode(value, self.top)
+        self._depth += 1
 
     def pop(self) -> Comparable:
         result: Comparable = self.top.value
@@ -15,7 +17,20 @@ class LinkedStack(object):
         if not self.top.end():
             self.top = self.top.following
 
+        self._depth -= 1
+
         return result
+
+    @property
+    def depth(self):
+        if self.top.end():
+            return 0
+
+        return self._depth
+
+    @depth.setter
+    def depth(self, value: int):
+        self._depth = value
 
 
 if __name__ == '__main__':
