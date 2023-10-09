@@ -1,5 +1,5 @@
-from atomize.Nodes import LinkedNode
-from atomize.Types import Comparable
+from adts.atomize import LinkedNode
+from adts.atomize import Comparable
 
 
 class LinkedStack(object):

@@ -1,6 +1,6 @@
-from atomize.Nodes import LinkedNode
-from atomize.Types import Comparable
-from atomize.Errors import LinkedListUnderflow
+from adts.atomize.Nodes import LinkedNode
+from adts.atomize.Types import Comparable
+from adts.atomize.Errors import LinkedListUnderflow
 from typing import Optional, Callable
 
 

@@ -1,4 +1,4 @@
-from atomize.Nodes import TreeNode, Comparable
+from adts.atomize import TreeNode
 
 
 class BinaryTree(object):

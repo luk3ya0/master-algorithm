@@ -1,6 +1,6 @@
-from atomize.Nodes import TreeNode
-from atomize.Types import Comparable
-from trees.BinaryTree import BinaryTree
+from adts.atomize import TreeNode
+from adts.atomize import Comparable
+from adts.trees.BinaryTree import BinaryTree
 
 
 class BinarySearchTree(BinaryTree):
