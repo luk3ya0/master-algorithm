@@ -25,7 +25,7 @@ class Bucket(object):
 
         # sort every bucket
         for bucket in buckets:
-            bucket = Merge.sort(bucket, 0, len(bucket))
+            Merge.sort(bucket, 0, len(bucket))
 
         # merge bucket one by one
         sortedArr: List[float] = [0.0] * len(seq)

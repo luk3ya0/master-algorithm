@@ -9,7 +9,7 @@ class Quick(object):
         if not start:
             start = 0
         if not stop:
-            stop = len(seq) - 1
+            stop = len(seq)
 
         if start >= stop:
             return seq
@@ -26,7 +26,7 @@ class Quick(object):
 
         pivotEle: Comparable = seq[start]
         mark: int = start
-        for idx in range(start+1, stop+1):
+        for idx in range(start+1, stop):
             if seq[idx] < pivotEle:
                 mark += 1
                 seq[mark], seq[idx] = seq[idx], seq[mark]
@@ -34,3 +34,8 @@ class Quick(object):
         seq[start], seq[mark] = seq[mark], pivotEle
 
         return mark
+
+
+if __name__ == '__main__':
+    alist = list(range(15, 1, -1))
+    print(Quick.sort(alist))

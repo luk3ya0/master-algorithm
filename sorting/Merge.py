@@ -15,7 +15,7 @@ class Merge(object):
 
     @staticmethod
     def merge(merged: List[Comparable], start: int, middle: int, stop: int) -> List[Comparable]:
-        merging: List[Comparable] = list()
+        merging: List[Comparable] = [0] * (stop - start + 1)
         p1, p2, p3 = start, middle + 1, 0
         while p1 <= middle and p2 <= stop:
             if merged[p1] <= merged[p2]:
@@ -33,4 +33,13 @@ class Merge(object):
             merging[p3] = merged[p2]
             p2, p3 = p2 + 1, p3 + 1
 
-        return merging
+        for index, value in enumerate(merging):
+            merged[index+start] = merging[index]
+
+        return merged
+
+
+if __name__ == '__main__':
+    alist = list(range(15, 1, -2))
+    print(alist)
+    print(Merge.sort(alist, 0, len(alist) - 1))

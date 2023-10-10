@@ -10,18 +10,17 @@ class Heaping(object):
         :param seq: sequence
         :return:
         """
-        heapified = PrioQueue(alist=seq, pred=lambda cat, cdr: cat < cdr)
+        heapified = PrioQueue(alist=seq, pred=lambda cat, cdr: cat > cdr)
         stop = len(heapified)
         for hit in range(stop - 1, 0, -1):
             last = heapified[hit]
             heapified[hit] = heapified.peek()
             heapified.shiftDown(last, start=0, stop=hit)
-        # print(id(heapified.elems))
         return heapified.elems
 
 
 if __name__ == '__main__':
-    alist = list(range(10))
-    print(id(alist))
+    alist = list(range(15, -1, -1))
+    print(alist)
     alist = Heaping.sort(alist)
-    print(id(alist))
+    print(alist)
