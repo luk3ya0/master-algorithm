@@ -16,16 +16,19 @@ class Bucket(object):
 
         region = maxEle - minEle
         bucketNum = len(seq)
-        buckets = [[]] * bucketNum
+        buckets = []
+        for _ in range(bucketNum):
+            buckets.append(list())
 
         # add element to every bucket
         for idx in range(len(seq)):
-            bucketNo = int((seq[idx] - minEle) * bucketNum / region - 1)
+            bucketNo = int((seq[idx] - minEle) * (bucketNum - 1) / region)
             buckets[bucketNo].append(seq[idx])
 
         # sort every bucket
         for bucket in buckets:
-            Merge.sort(bucket, 0, len(bucket))
+            if len(bucket) > 1:
+                Merge.sort(bucket, 0, len(bucket) - 1)
 
         # merge bucket one by one
         sortedArr: List[float] = [0.0] * len(seq)
@@ -36,3 +39,9 @@ class Bucket(object):
                 idx += 1
 
         return sortedArr
+
+
+if __name__ == '__main__':
+    sequence: List[float] = [4.12, 6.421, 0.0023, 3.0, 2.123, 8.122, 4.123, 10.09]
+    print(sequence)
+    print(Bucket.sort(sequence))

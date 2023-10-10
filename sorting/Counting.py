@@ -32,5 +32,5 @@ class Counting(object):
 
 
 if __name__ == '__main__':
-    sequence = list(range(10, 0, -1))
+    sequence = list(range(99, 89, -1))
     print(Counting.sort(sequence))
