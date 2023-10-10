@@ -1,5 +1,5 @@
-from adts.atomize import LinkedNode
-from adts.atomize import Comparable
+from adts.atomize.Nodes import LinkedNode
+from adts.atomize.Nodes import Comparable
 
 
 class LinkedStack(object):
