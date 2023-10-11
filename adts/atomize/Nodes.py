@@ -58,6 +58,27 @@ class TreeNode(object):
         return self._height
 
 
+class HuffmanNode(TreeNode):
+    def __lt__(self, other: Optional['HuffmanNode']):
+        return self.value < other.value
+
+    def __gt__(self, other: Optional['HuffmanNode']):
+        return self.value < other.value
+
+    def __eq__(self, other: Optional['HuffmanNode']):
+        return self.value == other.value
+
+    def withLeft(self, node: Optional["HuffmanNode"]) -> Optional["HuffmanNode"]:
+        self.left = node
+
+        return self
+
+    def withRight(self, node: Optional["HuffmanNode"]) -> Optional["HuffmanNode"]:
+        self.right = node
+
+        return self
+
+
 if __name__ == '__main__':
     nodeNo4 = TreeNode(4)
     nodeNo3 = TreeNode(3).withLeft(nodeNo4)
