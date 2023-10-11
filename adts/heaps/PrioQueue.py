@@ -5,7 +5,8 @@ from typing import List, Callable
 
 
 class PrioQueue(object):
-    def __init__(self, alist=None, pred: Callable[[Comparable, Comparable], bool] = lambda cat, cdr: cat < cdr):
+    def __init__(self, alist=None,
+                 pred: Callable[[Comparable, Comparable], bool] = lambda cat, cdr: cat < cdr):
         """
         :param alist: initial elements
         :param pred: < min-heap > max-heap

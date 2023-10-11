@@ -1,6 +1,7 @@
 from adts.atomize.Nodes import LinkedNode
 from adts.atomize.Types import Comparable
 from adts.atomize.Errors import LinkedListUnderflow
+
 from typing import Optional, Callable
 
 
@@ -90,7 +91,3 @@ class LinkedList(object):
         self._head = node
 
         return self
-
-
-if __name__ == '__main__':
-    pass

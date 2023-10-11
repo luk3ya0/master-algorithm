@@ -8,7 +8,9 @@ class Tim(object):
     MIN_RUN = 5
 
     @staticmethod
-    def merge(merged: List[Comparable], start: int, middle: int, stop: int) -> List[Comparable]:
+    def merge(
+            merged: List[Comparable],
+            start: int, middle: int, stop: int) -> List[Comparable]:
         leftLen = middle - start + 1
         rightLen = stop - middle
 

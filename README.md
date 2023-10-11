@@ -1,15 +1,15 @@
 # master-algorithm
 
-- [ ] Stack
-- [ ] Stack Apps
+- [X] Linked Stack
+- [X] Stack Apps
 
-- [ ] Queue
-- [ ] Queue Apps
+- [X] Circular Queue
+- [X] Queue Apps
 
-- [ ] Linked List
-  - [ ] Singly Linked List
-  - [ ] Doubly Linked List
-  - [ ] Circular Linked List
+- [X] Linked List
+  - [X] Singly Linked List
+  - [X] Doubly Linked List
+  - [X] Circular Linked List
 
 - [ ] Tree
   - [X] Binary Tree
