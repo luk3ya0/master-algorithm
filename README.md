@@ -14,15 +14,25 @@
 - [ ] Tree
   - [X] Binary Tree
   - [X] Binary Search Tree
+  - [X] Huffman Tree
   - [X] AVL Tree
   - [ ] Red Black Tree
   - [ ] Splay tree
 
 - [ ] Graph
-  - [ ] Breath First Search
-  - [ ] Depth First Search
-  - [ ] Prim
-  - [ ] ...
+  - [ ] Graph Adjacent Matrix
+  - [ ] Graph Adjacent List
+  - [ ] Minimum Spanning Tree
+    - [ ] Kruskal
+    - [ ] Prim
+  - Traverse
+    - [ ] Breath First Search
+    - [ ] Depth First Search
+  - [ ] Shortest Path
+    - [ ] Dijkstra (Single Vertex)
+    - [ ] Floyd (Any Vertex)
+  - [ ] Top Sort
+  - [ ] Critical Paths
 
 - [X] Sorting
   - [X] Bubble & Cocktail
