@@ -1,21 +1,6 @@
-from typing import List, Dict, Tuple, Set
+from typing import List, Dict, Tuple
 
-
-class Vertex(object):
-    def __init__(self, value: int):
-        self.value = value
-
-    def __int__(self):
-        return self.value
-
-    def __lt__(self, other):
-        pass
-
-    def __gt__(self, other):
-        pass
-
-    def __eq__(self, other):
-        pass
+from adts.atomize.Nodes import Vertex
 
 
 class GraphAdjList(object):

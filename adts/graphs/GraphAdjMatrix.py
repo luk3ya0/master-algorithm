@@ -2,7 +2,7 @@ from collections import namedtuple
 
 from typing import List, Tuple, Optional
 
-namedEdge = namedtuple('NamedEdge', ['car', 'cdr', 'weight'])
+namedEdge = namedtuple('NamedEdge', ['start', 'stop', 'weight'])
 
 
 class Edge(namedEdge):
@@ -34,11 +34,16 @@ class Matrix(object):
         for row in self._matrix:
             row.append(withVal)
 
-    def setEdge(self, at: Tuple[int, int], weight: int):
-        self._matrix[at[0]][at[1]] = weight
+    def setEdge(self, between: Tuple[int, int], weight: int):
+        self._matrix[between[0]][between[1]] = weight
 
-    def getEdge(self, at: Tuple[int, int]):
-        return self._matrix[at[0]][at[1]]
+    def getEdge(self, between: Tuple[int, int]):
+        return self._matrix[between[0]][between[1]]
+
+    def edgesFrom(self, start: int):
+        row = self._matrix[start]
+
+        return [Edge(start=start, stop=to, weight=weight) for to, weight in enumerate(row) if to != start]
 
 
 class GraphAdjMatrix(object):
@@ -57,7 +62,7 @@ class GraphAdjMatrix(object):
 
         self._matrix = Matrix(matrix=[[0] * len(self) for _ in range(len(self))])
         for e in self._edges:
-            self._matrix.setEdge(at=(e[0], e[1]), weight=e[2])
+            self._matrix.setEdge(between=(e[0], e[1]), weight=e[2])
 
     def __len__(self):
         return len(self._vertexes)
@@ -78,9 +83,12 @@ class GraphAdjMatrix(object):
         if self.isInvalid(car) or self.isInvalid(cdr):
             raise IndexError()
 
-        self._matrix.setEdge(at=(car, cdr), weight=weight)
+        self._matrix.setEdge(between=(car, cdr), weight=weight)
         if not self._directed:
-            self._matrix.setEdge(at=(cdr, car), weight=weight)
+            self._matrix.setEdge(between=(cdr, car), weight=weight)
+
+    def getEdge(self, car: int, cdr: int):
+        return self._matrix.getEdge(between=(car, cdr))
 
     def delEdge(self, car: int, cdr: int):
         self.setEdge(car, cdr, 0)
@@ -90,6 +98,9 @@ class GraphAdjMatrix(object):
 
     def isInvalid(self, index):
         return 0 > index or index > len(self)
+
+    def edgesFrom(self, start: int) -> List[Edge]:
+        return self._matrix.edgesFrom(start)
 
 
 if __name__ == '__main__':

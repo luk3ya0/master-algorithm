@@ -79,6 +79,23 @@ class HuffmanNode(TreeNode):
         return self
 
 
+class Vertex(object):
+    def __init__(self, value: int):
+        self.value = value
+
+    def __int__(self):
+        return self.value
+
+    def __lt__(self, other):
+        pass
+
+    def __gt__(self, other):
+        pass
+
+    def __eq__(self, other):
+        pass
+
+
 if __name__ == '__main__':
     nodeNo4 = TreeNode(4)
     nodeNo3 = TreeNode(3).withLeft(nodeNo4)

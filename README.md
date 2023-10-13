@@ -28,9 +28,9 @@
   - Traverse
     - [X] Breath First Search
     - [X] Depth First Search
-  - [ ] Shortest Path
-    - [ ] Dijkstra (Single Vertex)
-    - [ ] Floyd (Any Vertex)
+  - [X] Shortest Path
+    - [X] Dijkstra (Single Vertex)
+    - [X] Floyd (Any Vertex)
   - [ ] Top Sort
   - [ ] Critical Paths
 
