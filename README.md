@@ -20,14 +20,14 @@
   - [ ] Splay tree
 
 - [ ] Graph
-  - [ ] Graph Adjacent Matrix
-  - [ ] Graph Adjacent List
+  - [X] Graph Adjacent Matrix
+  - [X] Graph Adjacent List
   - [ ] Minimum Spanning Tree
     - [ ] Kruskal
     - [ ] Prim
   - Traverse
-    - [ ] Breath First Search
-    - [ ] Depth First Search
+    - [X] Breath First Search
+    - [X] Depth First Search
   - [ ] Shortest Path
     - [ ] Dijkstra (Single Vertex)
     - [ ] Floyd (Any Vertex)

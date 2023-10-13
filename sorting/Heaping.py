@@ -10,7 +10,7 @@ class Heaping(object):
         :param seq: sequence
         :return:
         """
-        heapified = PrioQueue(alist=seq, pred=lambda cat, cdr: cat > cdr)
+        heapified = PrioQueue(alist=seq, pred=lambda car, cdr: car > cdr)
         stop = len(heapified)
         for hit in range(stop - 1, 0, -1):
             last = heapified[hit]
