@@ -1,5 +1,5 @@
-from adts.atomize import TreeNode
-from adts.atomize import Comparable
+from adts.atomize.Nodes import TreeNode
+from adts.atomize.Nodes import Comparable
 from adts.trees.BinaryTree import BinaryTree
 
 
@@ -10,9 +10,9 @@ class BinarySearchTree(BinaryTree):
     def search(self, target: Comparable):
         current = self.root
         while current is not None:
-            if current.value < target:
+            if current.key < target:
                 current = current.right
-            elif current.value > target:
+            elif current.key > target:
                 current = current.left
             else:
                 break
@@ -26,10 +26,10 @@ class BinarySearchTree(BinaryTree):
 
         current, previous = self.root, None
         while current is not None:
-            if current.value == target:
+            if current.key == target:
                 return
             previous = current
-            if current.value < target:
+            if current.key < target:
                 current = current.right
             else:
                 current = current.left
@@ -47,10 +47,10 @@ class BinarySearchTree(BinaryTree):
         # locate the target value
         current, previous = self.root, None
         while current is not None:
-            if current.value == target:
+            if current.key == target:
                 break
             previous = current
-            if current.value < target:
+            if current.key < target:
                 current = current.right
             else:
                 current = current.left
@@ -75,7 +75,7 @@ class BinarySearchTree(BinaryTree):
             inOrderNext: TreeNode = current.right
             while inOrderNext.left is not None:
                 inOrderNext = inOrderNext.left
-            self.remove(inOrderNext.value)
-            current.value = inOrderNext.value
+            self.remove(inOrderNext.key)
+            current.key = inOrderNext.key
 
 

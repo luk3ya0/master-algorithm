@@ -1,4 +1,4 @@
-from adts.atomize import TreeNode
+from adts.atomize.Nodes import TreeNode
 
 
 class BinaryTree(object):
@@ -9,7 +9,7 @@ class BinaryTree(object):
     def preOrder(root: TreeNode | None):
         if root is None:
             return
-        print(root.value)
+        print(root.key)
         BinaryTree.preOrder(root=root.left)
         BinaryTree.preOrder(root=root.right)
 
@@ -18,7 +18,7 @@ class BinaryTree(object):
         if root is None:
             return
         BinaryTree.inOrder(root=root.left)
-        print(root.value)
+        print(root.key)
         BinaryTree.inOrder(root=root.right)
 
     @staticmethod
@@ -27,6 +27,6 @@ class BinaryTree(object):
             return
         BinaryTree.postOrder(root=root.left)
         BinaryTree.postOrder(root=root.right)
-        print(root.value)
+        print(root.key)
 
 

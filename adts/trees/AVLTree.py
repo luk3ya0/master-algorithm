@@ -1,5 +1,5 @@
-from adts.atomize import TreeNode
-from adts.atomize import Comparable
+from adts.atomize.Nodes import TreeNode
+from adts.atomize.Nodes import Comparable
 from adts.trees.BinarySearchTree import BinarySearchTree
 
 
@@ -57,9 +57,9 @@ class AVLTree(BinarySearchTree):
             return TreeNode(target)
 
         # find the right position to insert the new node
-        if target < node.value:
+        if target < node.key:
             node.left = AVLTree.insertAndBalance(node.left, target)
-        elif target > node.value:
+        elif target > node.key:
             node.right = AVLTree.insertAndBalance(node.right, target)
         else:
             return node
@@ -74,9 +74,9 @@ class AVLTree(BinarySearchTree):
     def removeAndBalance(node: TreeNode | None, target: Comparable) -> TreeNode | None:
         if node is None:
             return node
-        if target < node.value:
+        if target < node.key:
             node.left = AVLTree.removeAndBalance(node.left, target)
-        elif target > node.value:
+        elif target > node.key:
             node.right = AVLTree.removeAndBalance(node.right, target)
         else:
             if node.left is None or node.right is None:
@@ -91,9 +91,9 @@ class AVLTree(BinarySearchTree):
                 while inOrderNext.left is not None:
                     inOrderNext = inOrderNext.left
                 # remove inOrderNext in right subtree of node
-                node.right = AVLTree.removeAndBalance(node.right, inOrderNext.value)
+                node.right = AVLTree.removeAndBalance(node.right, inOrderNext.key)
                 # replace value of node as inOrderNext's
-                node.value = inOrderNext.value
+                node.key = inOrderNext.key
 
         # re-balance the node finally
         return AVLTree.rotate(node)

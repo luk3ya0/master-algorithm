@@ -14,14 +14,14 @@ class HuffmanTree(object):
 
     def buildHuffman(self) -> HuffmanNode:
         for w in self._weights:
-            self._wooding.enqueue(HuffmanNode(value=w))
+            self._wooding.enqueue(HuffmanNode(key=w))
 
         while len(self._wooding) > 1:
             left: HuffmanNode = self._wooding.dequeue()
             right: HuffmanNode = self._wooding.dequeue()
 
-            rootW = left.value + right.value
+            rootW = left.key + right.key
 
-            self._wooding.enqueue(HuffmanNode(value=rootW).withLeft(left).withRight(right))
+            self._wooding.enqueue(HuffmanNode(key=rootW).withLeft(left).withRight(right))
 
         return self._wooding.dequeue()

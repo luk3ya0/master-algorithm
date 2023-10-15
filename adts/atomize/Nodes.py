@@ -23,8 +23,8 @@ class DualLinkedNode(object):
 
 
 class TreeNode(object):
-    def __init__(self, value: Comparable):
-        self.value = value
+    def __init__(self, key: Comparable):
+        self.key = key
         self._height = 0
         self.left: Optional["TreeNode"] = None
         self.right: Optional["TreeNode"] = None
@@ -60,13 +60,13 @@ class TreeNode(object):
 
 class HuffmanNode(TreeNode):
     def __lt__(self, other: Optional['HuffmanNode']):
-        return self.value < other.value
+        return self.key < other.key
 
     def __gt__(self, other: Optional['HuffmanNode']):
-        return self.value < other.value
+        return self.key < other.key
 
     def __eq__(self, other: Optional['HuffmanNode']):
-        return self.value == other.value
+        return self.key == other.key
 
     def withLeft(self, node: Optional["HuffmanNode"]) -> Optional["HuffmanNode"]:
         self.left = node
@@ -94,6 +94,24 @@ class Vertex(object):
 
     def __eq__(self, other):
         pass
+
+
+class RBNode(object):
+    BLACK = True
+    RED = False
+
+    def __init__(self, key: Comparable):
+        self.key = key
+        self.left: Optional['RBNode'] = None
+        self.right: Optional['RBNode'] = None
+        self.parent: Optional['RBNode'] = None
+        self.color = self.BLACK
+
+    def isBlack(self):
+        return self.BLACK
+
+    def isRed(self):
+        return not self.color
 
 
 if __name__ == '__main__':
