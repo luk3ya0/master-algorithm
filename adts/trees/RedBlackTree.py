@@ -39,8 +39,7 @@ class RedBlackTree(object):
         node.color = color
 
     @staticmethod
-    def successorOf(node: RBNode):
-        # find the successor of current in in-order traversal
+    def successor(node: RBNode) -> Optional['RBNode']:
         inOrderNext: RBNode = node.right
         while inOrderNext.left is not None:
             inOrderNext = inOrderNext.left
@@ -67,14 +66,16 @@ class RedBlackTree(object):
     #    / \                 / \
     #   ly ry               lx ly
     def leftRotate(self, x: RBNode):
-        # 1. 将 y 的左子节点赋给x的右子节点, 并将 x 赋给 y 左子节点的父节点 (y 左子节点非空时)
+        # 1. Assign the left child of y to the right child of x,
+        # and assign x to the parent of the left child of y (when the left child of y is not empty).
         y: RBNode = x.left
         x.right = y.left
 
         if y.left is not None:
             y.left.parent = x
 
-        # 2. 将 x 的父节点 p (非空时) 赋给 y 的父节点，同时更新 p 的子节点为 y (左或右)
+        # 2. Assign the parent of x, p (when not empty), to the parent of y,
+        # and update the children of p to be y (left or right).
         y.parent = x.parent
 
         if x.parent is None:
@@ -85,7 +86,7 @@ class RedBlackTree(object):
             else:
                 x.parent.right = y
 
-        # 3. 将 y 的左子节点设为 x, 将 x 的父节点设为 y
+        # 3. Set the left child of y to x, and the parent of x to y.
         y.left = x
         x.parent = y
 
@@ -97,14 +98,16 @@ class RedBlackTree(object):
     #   / \                     / \
     #  lx rx                   rx ry
     def rightRotate(self, y: RBNode):
-        # 1. 将 x 的右子节点赋给 y 的左子节点, 并将 y 赋给 x 右子节点的父节点 (x 右子节点非空时)
+        # 1. Assign the right child of x to the left child of y,
+        # and assign y to the parent of the right child of x (if the right child of x is not empty).
         x: RBNode = y.left
         y.left = x.right
 
         if x.right is not None:
             x.right.parent = y
 
-        # 2. 将 y 的父节点 p (非空时) 赋给 x 的父节点, 同时更新 p 的子节点为 x (左或右)
+        # 2. Assign y's parent p (when not empty) to x's parent,
+        # and update p's children to x (left or right).
         if y.parent is None:
             self.root = x
         else:
@@ -113,7 +116,7 @@ class RedBlackTree(object):
             else:
                 y.parent.left = x
 
-        # 3. 将 x 的右子节点设为 y, 将 y 的父节点设为 x
+        # 3. Set the right child of x to y, and the parent of y to x.
         x.right = y
         y.parent = x
 
@@ -144,7 +147,75 @@ class RedBlackTree(object):
         self.insertFixUp(node)
 
     def insertFixUp(self, N: RBNode):
-        pass
+        P: RBNode  # parent of N
+        G: RBNode  # grandparent of N
+        U: RBNode  # sibling of parent
+
+        # The parent node exists and the color of the parent node is red
+        while (self.parentOf(N) is not None) and self.isRed(self.parentOf(N)):
+            P = self.parentOf(N)  # access the parent
+            G = self.parentOf(P)  # access the grandparent
+
+            if P == G.left:
+                U = G.right
+
+                # case 1:
+                if U is not None and self.isRed(U):
+                    self.setBlack(P)
+                    self.setBlack(U)
+                    self.setRed(G)
+
+                    N = G  # fix up recursively
+
+                    continue
+
+                # case 2:
+                if N == P.right:
+                    self.leftRotate(P)
+                    N, P = P, N  # flip between N and P for rightRotate
+
+                # case 3:
+                self.setBlack(P)
+                self.setBlack(G)
+
+                self.rightRotate(G)
+
+            else:  # symmetric
+                U = G.left
+
+                # case 1:
+                if U is not None and self.isRed(U):
+                    self.setBlack(P)
+                    self.setBlack(U)
+                    self.setRed(G)
+
+                    N = G  # fix up recursively
+
+                    continue
+
+                # case 2: 🌚 🌝 🌓
+                if N == P.left:
+                    self.rightRotate(P)
+                    N, P = P, N  # flip between N and P for leftRotate
+
+                # case 3:
+                self.setBlack(P)  # is equal to setBlack for N
+                self.setRed(G)
+
+                self.leftRotate(G)
+
+        self.setBlack(self.root)  # awaiting verification
 
     def remove(self, value: Comparable):
         node: RBNode = self.search(target=value)
+
+        if all([node.left, node.right]):
+            S: RBNode = self.successor(node)
+            S.key = node.key
+            node = S
+
+        replacement: RBNode = node.left if node.left is not None else node.right
+
+    @staticmethod
+    def removeFixUP(N: RBNode, P: RBNode):
+        pass

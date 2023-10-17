@@ -122,3 +122,5 @@ if __name__ == '__main__':
 
     print(nodeNo1.height)
     print(nodeNo1.balanceFactor)
+
+    print(all([nodeNo1, nodeNo2]))
