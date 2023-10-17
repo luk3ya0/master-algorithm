@@ -121,32 +121,35 @@ class RedBlackTree(object):
         y.parent = x
 
     def insert(self, value: Comparable):
-        node = RBNode(key=value)
+        # N: Current Node of Concern
+        N = RBNode(key=value)
 
-        current: Optional['RBNode'] = None  # parent of node
-        x = self.root  # for searching down
+        # parent of N
+        P: Optional['RBNode'] = None
+        # temp node for searching down
+        X = self.root
 
-        while x is not None:
-            current = x
-            if node.key < x.key:
-                x = x.left
+        while X is not None:
+            P = X
+            if N.key < X.key:
+                X = X.left
             else:
-                x = x.right
+                X = X.right
 
-        node.parent = current
+        N.parent = P
 
-        if current is not None:
-            if node.key < current.key:
-                current.left = node
+        if P is not None:
+            if N.key < P.key:
+                P.left = N
             else:
-                current.right = node
+                P.right = N
 
         else:
-            self.root = node
+            self.root = N
 
-        self.insertFixUp(node)
+        self.fixAfterInsertion(N)
 
-    def insertFixUp(self, N: RBNode):
+    def fixAfterInsertion(self, N: RBNode):
         P: RBNode  # parent of N
         G: RBNode  # grandparent of N
         U: RBNode  # sibling of parent
@@ -207,15 +210,111 @@ class RedBlackTree(object):
         self.setBlack(self.root)  # awaiting verification
 
     def remove(self, value: Comparable):
-        node: RBNode = self.search(target=value)
+        # N: Current Node of Concern
+        N: RBNode = self.search(target=value)
 
-        if all([node.left, node.right]):
-            S: RBNode = self.successor(node)
-            S.key = node.key
-            node = S
+        if all([N.left, N.right]):
+            # S: Successor of N
+            S: RBNode = self.successor(N)
+            N.key = S.key
+            N = S  # focus on the successor of N
 
-        replacement: RBNode = node.left if node.left is not None else node.right
+        # RPL: abbreviation for replacement
+        RPL: RBNode = N.left if N.left is not None else N.right
+        if RPL is not None:
+            RPL.parent = N.parent
+            if N.parent is None:
+                self.root = RPL
+            elif N == N.parent.left:
+                N.parent.left = RPL
+            else:
+                N.parent.right = RPL
 
-    @staticmethod
-    def removeFixUP(N: RBNode, P: RBNode):
-        pass
+            N.left, N.right, N.parent = None, None, None  # delete the focused N
+
+            if self.isBlack(N):
+                self.fixAfterDeletion(RPL)
+        elif N.parent is None:
+            self.root = None
+        else:  # the N to delete has not child
+            if self.isBlack(N):
+                self.fixAfterDeletion(N)
+
+            if N.parent is not None:
+                if N == N.parent.left:
+                    N.parent.left = None
+                elif N == N.parent.right:
+                    N.parent.right = None
+
+                N.parent = None
+
+    def fixAfterDeletion(self, N: RBNode):
+        while N != self.root and self.isBlack(N):
+            if N == N.parent.left:
+                # Parent of N
+                P: RBNode = N.parent
+                # Sibling of N
+                S: RBNode = N.parent.right
+
+                if self.isRed(S):
+                    self.setBlack(S)
+                    self.setRed(P)
+                    self.leftRotate(P)
+
+                    S = N.parent.right
+
+                if self.isBlack(S.left) and self.isBlack(S.right):
+                    self.setRed(S)
+                    N = P  # fix up recursively
+                else:
+                    if self.isBlack(S.right):
+                        self.setBlack(S.left)
+                        self.setRed(S)
+                        self.rightRotate(S)
+
+                        S = N.parent.right
+
+                    self.setColor(S, self.colorOf(N))
+                    self.setBlack(P)
+                    self.setBlack(S.right)
+
+                    self.leftRotate(P)
+
+                    N = self.root  # break up the loop
+
+            else:  # symmetric
+                # Parent of N
+                P: RBNode = N.parent
+                # Sibling of N
+                S: RBNode = N.parent.left
+
+                if self.isRed(S):
+                    self.setBlack(S)
+                    self.setRed(P)
+
+                    self.rightRotate(P)
+
+                    S = P.left
+
+                if self.isBlack(S.right) and self.isBlack(S.left):
+                    self.setRed(S)
+
+                    N = P
+                else:
+                    if self.isBlack(S.left):
+                        self.setBlack(S.right)
+                        self.setRed(S)
+
+                        self.leftRotate(S)
+
+                        S = P.left
+
+                    self.setColor(S, self.colorOf(P))
+                    self.setBlack(P)
+                    self.setBlack(S.left)
+
+                    self.rightRotate(P)
+
+                    N = self.root  # break up the loop
+
+        self.setBlack(N)

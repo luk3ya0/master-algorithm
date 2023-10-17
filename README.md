@@ -16,7 +16,7 @@
   - [X] Binary Search Tree
   - [X] Huffman Tree
   - [X] AVL Tree
-  - [ ] Red Black Tree
+  - [X] Red Black Tree
   - [ ] Splay tree
 
 - [ ] Graph
