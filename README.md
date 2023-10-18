@@ -11,13 +11,13 @@
   - [X] Doubly Linked List
   - [X] Circular Linked List
 
-- [ ] Tree
+- [X] Tree
   - [X] Binary Tree
   - [X] Binary Search Tree
   - [X] Huffman Tree
   - [X] AVL Tree
   - [X] Red Black Tree
-  - [ ] Splay tree
+  - [X] Splay tree
 
 - [ ] Graph
   - [X] Graph Adjacent Matrix

@@ -1,12 +1,14 @@
 from adts.atomize.Nodes import RBNode
 from adts.atomize.Types import Comparable
 
+from adts.trees.ZigZag import ZigZag
+
 from typing import Optional
 
 
-class RedBlackTree(object):
+class RedBlackTree(ZigZag):
     def __init__(self, root: RBNode):
-        self.root: RBNode = root
+        super().__init__(root)
 
     @staticmethod
     def parentOf(node: RBNode) -> Optional['RBNode']:
@@ -57,68 +59,6 @@ class RedBlackTree(object):
                 break
 
         return current
-
-    #     p                       p
-    #    /                       /
-    #   x                       y
-    #  / \                     / \
-    # lx  y     ----->        x  ry
-    #    / \                 / \
-    #   ly ry               lx ly
-    def leftRotate(self, x: RBNode):
-        # 1. Assign the left child of y to the right child of x,
-        # and assign x to the parent of the left child of y (when the left child of y is not empty).
-        y: RBNode = x.left
-        x.right = y.left
-
-        if y.left is not None:
-            y.left.parent = x
-
-        # 2. Assign the parent of x, p (when not empty), to the parent of y,
-        # and update the children of p to be y (left or right).
-        y.parent = x.parent
-
-        if x.parent is None:
-            self.root = y
-        else:
-            if x == x.parent.left:
-                x.parent.left = y
-            else:
-                x.parent.right = y
-
-        # 3. Set the left child of y to x, and the parent of x to y.
-        y.left = x
-        x.parent = y
-
-    #        p                   p
-    #       /                   /
-    #      y                   x
-    #     / \                 / \
-    #    x  ry   ----->      lx  y
-    #   / \                     / \
-    #  lx rx                   rx ry
-    def rightRotate(self, y: RBNode):
-        # 1. Assign the right child of x to the left child of y,
-        # and assign y to the parent of the right child of x (if the right child of x is not empty).
-        x: RBNode = y.left
-        y.left = x.right
-
-        if x.right is not None:
-            x.right.parent = y
-
-        # 2. Assign y's parent p (when not empty) to x's parent,
-        # and update p's children to x (left or right).
-        if y.parent is None:
-            self.root = x
-        else:
-            if y == y.parent.right:
-                y.parent.right = x
-            else:
-                y.parent.left = x
-
-        # 3. Set the right child of x to y, and the parent of y to x.
-        x.right = y
-        y.parent = x
 
     def insert(self, value: Comparable):
         # N: Current Node of Concern
@@ -174,14 +114,14 @@ class RedBlackTree(object):
 
                 # case 2:
                 if N == P.right:
-                    self.leftRotate(P)
+                    self.zag(P)
                     N, P = P, N  # flip between N and P for rightRotate
 
                 # case 3:
                 self.setBlack(P)
                 self.setBlack(G)
 
-                self.rightRotate(G)
+                self.zig(G)
 
             else:  # symmetric
                 U = G.left
@@ -198,14 +138,14 @@ class RedBlackTree(object):
 
                 # case 2: 🌚 🌝 🌓
                 if N == P.left:
-                    self.rightRotate(P)
+                    self.zig(P)
                     N, P = P, N  # flip between N and P for leftRotate
 
                 # case 3:
                 self.setBlack(P)  # is equal to setBlack for N
                 self.setRed(G)
 
-                self.leftRotate(G)
+                self.zag(G)
 
         self.setBlack(self.root)  # awaiting verification
 
@@ -259,7 +199,7 @@ class RedBlackTree(object):
                 if self.isRed(S):
                     self.setBlack(S)
                     self.setRed(P)
-                    self.leftRotate(P)
+                    self.zag(P)
 
                     S = N.parent.right
 
@@ -270,7 +210,7 @@ class RedBlackTree(object):
                     if self.isBlack(S.right):
                         self.setBlack(S.left)
                         self.setRed(S)
-                        self.rightRotate(S)
+                        self.zig(S)
 
                         S = N.parent.right
 
@@ -278,7 +218,7 @@ class RedBlackTree(object):
                     self.setBlack(P)
                     self.setBlack(S.right)
 
-                    self.leftRotate(P)
+                    self.zag(P)
 
                     N = self.root  # break up the loop
 
@@ -292,7 +232,7 @@ class RedBlackTree(object):
                     self.setBlack(S)
                     self.setRed(P)
 
-                    self.rightRotate(P)
+                    self.zig(P)
 
                     S = P.left
 
@@ -305,7 +245,7 @@ class RedBlackTree(object):
                         self.setBlack(S.right)
                         self.setRed(S)
 
-                        self.leftRotate(S)
+                        self.zag(S)
 
                         S = P.left
 
@@ -313,7 +253,7 @@ class RedBlackTree(object):
                     self.setBlack(P)
                     self.setBlack(S.left)
 
-                    self.rightRotate(P)
+                    self.zig(P)
 
                     N = self.root  # break up the loop
 

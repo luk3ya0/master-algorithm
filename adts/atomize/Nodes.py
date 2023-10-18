@@ -114,6 +114,21 @@ class RBNode(object):
         return not self.color
 
 
+class SplayNode(object):
+    def __init__(self, key: Comparable = None):
+        self.key = key
+        self.left: Optional['SplayNode'] = None
+        self.right: Optional['SplayNode'] = None
+        self.parent: Optional['SplayNode'] = None
+
+    @property
+    def grand(self) -> Optional['SplayNode']:
+        if self.parent is not None:
+            return self.parent.parent
+        else:
+            return None
+
+
 if __name__ == '__main__':
     nodeNo4 = TreeNode(4)
     nodeNo3 = TreeNode(3).withLeft(nodeNo4)
