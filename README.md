@@ -19,6 +19,7 @@
   - [X] AVL Tree
   - [X] Red Black Tree
   - [X] Splay tree
+  - [X] UnionFind
 
 - [X] Graph
   - [X] Graph Adjacent Matrix
